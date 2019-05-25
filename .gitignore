@@ -28,13 +28,13 @@
 /build/
 
 # Android related
-**/src/android/**/gradle-wrapper.jar
-**/src/android/.gradle
-**/src/android/captures/
-**/src/android/gradlew
-**/src/android/gradlew.bat
-**/src/android/local.properties
-**/src/android/**/GeneratedPluginRegistrant.java
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
 
 # iOS/XCode related
 **/ios/**/*.mode1v3

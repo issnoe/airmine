@@ -18,5 +18,14 @@
 - Planeación vehicular
 
 # Deploy
+
+- Change name (cmd + P)
+  - android/app/src/main/AndroidManifest.xml
+  - android/app/build.gradle
+
+- Change version 1 +
+  - flutterVersionCode
+  - flutterVersionName
+
 flutter build apk --release --target-platform=android-arm64
 
