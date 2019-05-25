@@ -26,6 +26,7 @@ dependencies:
   intl:
   http: ^0.12.0+2
   location: ^1.4.1
+  firebase_messaging:
 
 dev_dependencies:
   flutter_test:
