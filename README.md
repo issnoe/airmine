@@ -31,3 +31,9 @@
 
 flutter build apk --release --target-platform=android-arm64 --build-name=1.0.1 --build-number=3
 
+# Realese steps
+
+git tag -a <1.0.1> -m '<1.0.1> beta'
+git tag -s <1.0.1> -m 'Signed <1.0.1> tag'
+git push origin
+
