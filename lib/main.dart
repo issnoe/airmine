@@ -33,9 +33,11 @@ class HomeScreen extends StatefulWidget {
   }
 }
 
-class _HomeScreen extends State<HomeScreen> {
+class _HomeScreen extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   Location location = Location();
   String address;
+  TabController tabcontroller;
   Map<String, dynamic> aqiData;
 
   reloadData() async {
@@ -69,22 +71,59 @@ class _HomeScreen extends State<HomeScreen> {
   void initState() {
     super.initState();
     reloadData();
+    tabcontroller = new TabController(length: 4, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    tabcontroller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: CustomAppBar(),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children: <Widget>[
-            ScreenTop(
-              address: address,
-              aqiData: aqiData,
-              reloadData: reloadData,
+      body: TabBarView(
+        controller: tabcontroller,
+        children: <Widget>[
+          SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: <Widget>[
+                ScreenTop(
+                  address: address,
+                  aqiData: aqiData,
+                  reloadData: reloadData,
+                ),
+                ScreenBottom(aqiData: aqiData),
+              ],
             ),
-            ScreenBottom(aqiData: aqiData),
+          ),
+          Screens(),
+          Screens(),
+          Screens(),
+        ],
+      ),
+      bottomNavigationBar: Material(
+        color: Colors.transparent,
+        elevation: 15.0,
+        child: TabBar(
+          controller: tabcontroller,
+          tabs: <Widget>[
+            Tab(
+              icon: Icon(
+                Icons.cloud,
+              ),
+            ),
+            Tab(
+              icon: Icon(Icons.map),
+            ),
+            Tab(
+              icon: Icon(Icons.notifications),
+            ),
+            Tab(
+              icon: Icon(Icons.settings),
+            )
           ],
         ),
       ),
@@ -92,62 +131,9 @@ class _HomeScreen extends State<HomeScreen> {
   }
 }
 
-class PageX extends StatelessWidget {
+class Screens extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-          appBar: AppBar(
-            bottom: TabBar(
-              tabs: <Widget>[
-                Tab(
-                  text: 'Products',
-                  icon: Icon(Icons.list),
-                ),
-                Tab(
-                  text: 'Details',
-                  icon: Icon(Icons.list),
-                ),
-              ],
-            ),
-          ),
-          body: TabBarView(
-            children: <Widget>[
-              Text('hola mundo'),
-              Text('hola mundo 2'),
-            ],
-          )),
-    );
-  }
-}
-
-class TabBarDemo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            bottom: TabBar(
-              tabs: [
-                Tab(icon: Icon(Icons.directions_car)),
-                Tab(icon: Icon(Icons.directions_transit)),
-                Tab(icon: Icon(Icons.directions_bike)),
-              ],
-            ),
-            title: Text('Tabs Demo'),
-          ),
-          body: TabBarView(
-            children: [
-              Icon(Icons.directions_car),
-              Icon(Icons.directions_transit),
-              Icon(Icons.directions_bike),
-            ],
-          ),
-        ),
-      ),
-    );
+    return Text('hi');
   }
 }
