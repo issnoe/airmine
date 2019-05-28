@@ -10,6 +10,7 @@ dynamic aqiProvider(currentLocation) async {
   final longitud = currentLocation["longitude"].toString();
   final geo = "geo:" + latitud + ";" + longitud;
   final url = "https://api.waqi.info/feed/" + geo + "/?token=$apiToken";
+  print(url);
   // Await the http get response, then decode the json-formatted responce.
   var response = await http.get(url);
   if (response.statusCode == 200) {
@@ -115,4 +116,40 @@ dynamic status(int aqi) {
     "advertencias": advertencias,
   };
   return provider;
+}
+
+String getLabel(String label) {
+  var names = {
+    "pm25": "PM 2.5",
+    "pm10": "PM 10",
+    "o3": "Ozono",
+    "no2": "Dioxido de Nitrogeno",
+    "so2": "Dioxido Sulphur",
+    "co": "Monoxido de Carbono",
+    "t": "Temperatura",
+    "w": "Viento",
+    "r": "Precipitación",
+    "h": "Humedad",
+    "d": "Dew",
+    "p": "Presión Atmostferica"
+  };
+  return names[label];
+}
+
+Color colorize(double aqi, String name) {
+  if (name == 'p') {
+    return Colors.white;
+  }
+
+  if (aqi < 50) {
+    return Colors.green;
+  }
+  if (aqi > 51 && aqi < 100) {
+    return Colors.yellow[400];
+  }
+  if (aqi > 100 && aqi < 150) {
+    return Colors.orange;
+  }
+
+  return Colors.yellow[400];
 }

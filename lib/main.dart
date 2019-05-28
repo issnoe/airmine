@@ -18,6 +18,9 @@ class MyApp extends StatelessWidget {
       title: 'AirMine',
       theme: appTheme,
       home: HomeScreen(),
+      routes: {
+        '/home': (BuildContext contex) => HomeScreen(),
+      },
     );
   }
 }
@@ -70,6 +73,21 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(
+      //   title: Text('Home'),
+      //   bottom: TabBar(
+      //     tabs: <Widget>[
+      //       Tab(
+      //         text: 'Products',
+      //         icon: Icon(Icons.list),
+      //       ),
+      //       Tab(
+      //         text: 'Details',
+      //         icon: Icon(Icons.list),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(

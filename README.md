@@ -9,7 +9,6 @@
 - Recomendaciones
 
 # Próxima versión
-
 - Notificaciones
 - Pronósticos
 - Clima
@@ -27,13 +26,13 @@
   - flutterVersionCode
   - flutterVersionName
 
-  --build-name=1.0.1 --build-number=3
 
-flutter build apk --release --target-platform=android-arm64 --build-name=1.0.1 --build-number=3
+flutter build apk --release --target-platform=android-arm64 --build-name=1.0.2 --build-number=3
+flutter build apk --release --target-platform=android-arm --build-name=1.0.2 --build-number=3.1
 
 # Realese steps
 
-git tag -a <1.0.1> -m '<1.0.1> beta'
-git tag -s <1.0.1> -m 'Signed <1.0.1> tag'
-git push origin <1.0.1>
+git tag -a <2> -m '<2> beta'
+git tag -s <2> -m 'Signed <2> tag'
+git push origin <2>
 

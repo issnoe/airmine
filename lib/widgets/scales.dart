@@ -54,7 +54,7 @@ class Scale extends StatelessWidget {
               margin: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
               child: Text("$range",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black54,
                     fontWeight: FontWeight.bold,
                   )),
             )),
