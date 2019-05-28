@@ -6,6 +6,7 @@ import 'package:airmine/providers/location.dart';
 import 'package:airmine/providers/aqi.dart';
 import 'package:airmine/ScreenTop.dart';
 import 'package:airmine/ScreenBottom.dart';
+import 'package:airmine/widgets/customAppBar.dart';
 
 void main() => runApp(MyApp());
 
@@ -73,21 +74,7 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Home'),
-      //   bottom: TabBar(
-      //     tabs: <Widget>[
-      //       Tab(
-      //         text: 'Products',
-      //         icon: Icon(Icons.list),
-      //       ),
-      //       Tab(
-      //         text: 'Details',
-      //         icon: Icon(Icons.list),
-      //       ),
-      //     ],
-      //   ),
-      // ),
+      bottomNavigationBar: CustomAppBar(),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -99,6 +86,66 @@ class _HomeScreen extends State<HomeScreen> {
             ),
             ScreenBottom(aqiData: aqiData),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class PageX extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+          appBar: AppBar(
+            bottom: TabBar(
+              tabs: <Widget>[
+                Tab(
+                  text: 'Products',
+                  icon: Icon(Icons.list),
+                ),
+                Tab(
+                  text: 'Details',
+                  icon: Icon(Icons.list),
+                ),
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: <Widget>[
+              Text('hola mundo'),
+              Text('hola mundo 2'),
+            ],
+          )),
+    );
+  }
+}
+
+class TabBarDemo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: TabBar(
+              tabs: [
+                Tab(icon: Icon(Icons.directions_car)),
+                Tab(icon: Icon(Icons.directions_transit)),
+                Tab(icon: Icon(Icons.directions_bike)),
+              ],
+            ),
+            title: Text('Tabs Demo'),
+          ),
+          body: TabBarView(
+            children: [
+              Icon(Icons.directions_car),
+              Icon(Icons.directions_transit),
+              Icon(Icons.directions_bike),
+            ],
+          ),
         ),
       ),
     );

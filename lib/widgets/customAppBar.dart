@@ -11,15 +11,23 @@ class CustomAppBar extends StatelessWidget {
       BottomNavigationBarItem(
           icon: Icon(Icons.cloud, color: Colors.black),
           title: Text(
-            'Calidad del Aire',
+            'Calidad del aire',
             style: bottomNavigationBarItemStyle,
           )),
     );
     bottomBarItems.add(
       BottomNavigationBarItem(
-          icon: Icon(Icons.wb_sunny, color: Colors.black),
+          icon: Icon(Icons.map, color: Colors.black),
           title: Text(
-            'UV',
+            'Mapa',
+            style: bottomNavigationBarItemStyle,
+          )),
+    );
+    bottomBarItems.add(
+      BottomNavigationBarItem(
+          icon: Icon(Icons.notifications, color: Colors.black),
+          title: Text(
+            'Notificaciones',
             style: bottomNavigationBarItemStyle,
           )),
     );
