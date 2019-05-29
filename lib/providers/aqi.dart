@@ -2,6 +2,23 @@ import 'package:flutter/material.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 
+dynamic getNotifications() async {
+  var jsonResponse;
+  var provider;
+  final url = "https://airmine-42cb4.firebaseio.com/notifications.json";
+  //print(url);
+  // Await the http get response, then decode the json-formatted responce.
+  var response = await http.get(url);
+  if (response.statusCode == 200) {
+    jsonResponse = convert.jsonDecode(response.body);
+
+    provider = jsonResponse;
+  } else {
+    print("Request failed $response.");
+  }
+  return provider;
+}
+
 dynamic aqiProvider(currentLocation) async {
   var jsonResponse;
   var provider;

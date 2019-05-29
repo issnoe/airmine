@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "598639561177",
+    "firebase_url": "https://airmine-42cb4.firebaseio.com",
+    "project_id": "airmine-42cb4",
+    "storage_bucket": "airmine-42cb4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598639561177:android:a1e03512bf952475",
+        "android_client_info": {
+          "package_name": "com.matersoft.airmine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "598639561177-nvojv667adaidr074kc397lnj6d0kpa0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUsUPQGrLXbb7PQorF_lrWyEw5uhhxuRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "598639561177-nvojv667adaidr074kc397lnj6d0kpa0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
