@@ -71,7 +71,15 @@ class _HomeScreen extends State<HomeScreen>
   String address;
   TabController tabcontroller;
   Map<String, dynamic> aqiData;
-  List<Map<String, dynamic>> notifications;
+  List<Map<String, dynamic>> notifications = [
+    {
+      "createAT": "2019-05-29T00:34:26.979Z",
+      "description": "Contingencia ambiental",
+      "image":
+          "http://propiedades.com/blog/wp-content/uploads/2016/04/emisiones-transporte.png",
+      "type": "ads"
+    }
+  ];
 
   reloadData() async {
     try {
@@ -92,12 +100,6 @@ class _HomeScreen extends State<HomeScreen>
           });
         });
       });
-      getNotifications().then((notifications) {
-        print(notifications.toString());
-        setState(() {
-          notifications = notifications;
-        });
-      });
     } catch (e) {
       if (e.code == 'PERMISSION_DENIED') {
         const error = 'Permission denied';
@@ -109,6 +111,20 @@ class _HomeScreen extends State<HomeScreen>
   @override
   void initState() {
     super.initState();
+    getNotifications().then((res_notifications) {
+      print(res_notifications.toString());
+      res_notifications.forEach((k, v) {
+        setState(() {
+          notifications.add({
+            "createAT": "2019-05-29T00:34:26.979Z",
+            "description": "Contingencia ambiental",
+            "image":
+                "https://firebasestorage.googleapis.com/v0/b/airmine-42cb4.appspot.com/o/contingencia.jpg?alt=media&token=f8712a5b-d046-4fda-93fd-eb9c5d54074d",
+            "type": "ads"
+          });
+        });
+      });
+    });
     reloadData();
     tabcontroller = new TabController(length: 4, vsync: this);
   }
@@ -198,26 +214,26 @@ class Notification extends StatelessWidget {
   Notification(this.data) {}
   @override
   Widget build(BuildContext context) {
-    return Text('hj');
-    // return Padding(
-    //   padding: const EdgeInsets.symmetric(vertical: 8.0),
-    //   child: Stack(
-    //     children: <Widget>[
-    //       Text('${data['type']}'),
-    //       SizedBox(
-    //         height: 100,
-    //       ),
-    //       Container(
-    //           width: 500,
-    //           child: CachedNetworkImage(
-    //             imageUrl: '${data['image']}',
-    //             fit: BoxFit.cover,
-    //             fadeInDuration: Duration(milliseconds: 500),
-    //             fadeInCurve: Curves.easeIn,
-    //             // placeholder: Center(child: CircularProgressIndicator()),
-    //           )),
-    //     ],
-    //   ),
-    // );
+    //return Text('hj');
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Stack(
+        children: <Widget>[
+          Text('${data['type']}'),
+          SizedBox(
+            height: 100,
+          ),
+          Container(
+              width: 500,
+              child: CachedNetworkImage(
+                imageUrl: '${data['image']}',
+                fit: BoxFit.cover,
+                fadeInDuration: Duration(milliseconds: 500),
+                fadeInCurve: Curves.easeIn,
+                // placeholder: Center(child: CircularProgressIndicator()),
+              )),
+        ],
+      ),
+    );
   }
 }
