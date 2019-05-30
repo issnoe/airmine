@@ -27,8 +27,8 @@
   - flutterVersionName
 
 
-flutter build apk --release --target-platform=android-arm64 --build-name=1.0.2 --build-number=3
-flutter build apk --release --target-platform=android-arm --build-name=1.0.2 --build-number=3.1
+flutter build apk --release --target-platform=android-arm64 --build-name=1.0.4 --build-number=41
+flutter build apk --release --target-platform=android-arm --build-name=1.0.3 --build-number=40
 
 # Realese steps
 
