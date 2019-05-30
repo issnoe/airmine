@@ -179,7 +179,7 @@ class _HomeScreen extends State<HomeScreen>
           ),
           MapSample(locationState: locationState, aqiMapData: aqiMapData),
           ScreenNotifications(notifications: notifications),
-          PlaceCirclePage()
+          PlaceCircleBody(locationState: locationState, aqiMapData: aqiMapData)
         ],
       ),
       bottomNavigationBar: Material(

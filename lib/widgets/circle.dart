@@ -8,17 +8,10 @@ abstract class Page extends StatelessWidget {
   final String title;
 }
 
-class PlaceCirclePage extends Page {
-  PlaceCirclePage() : super(const Icon(Icons.linear_scale), 'Place circle');
-
-  @override
-  Widget build(BuildContext context) {
-    return const PlaceCircleBody();
-  }
-}
-
 class PlaceCircleBody extends StatefulWidget {
-  const PlaceCircleBody();
+  var locationState;
+  var aqiMapData;
+  PlaceCircleBody({this.locationState, this.aqiMapData});
 
   @override
   State<StatefulWidget> createState() => PlaceCircleBodyState();
@@ -51,6 +44,24 @@ class PlaceCircleBodyState extends State<PlaceCircleBody> {
   }
 
   @override
+  void initState() {
+    print('aqiMapData');
+    print(widget.aqiMapData.length);
+    if (widget.aqiMapData.length > 0) {
+      for (var x = 0; x < widget.aqiMapData.length; x++) {
+        _add(
+          widget.aqiMapData[x]['lat'],
+          widget.aqiMapData[x]['lon'],
+        );
+      }
+    }
+    _add(
+      widget.locationState['latitude'],
+      widget.locationState['longitude'],
+    );
+  }
+
+  @override
   void dispose() {
     super.dispose();
   }
@@ -70,7 +81,7 @@ class PlaceCircleBodyState extends State<PlaceCircleBody> {
     });
   }
 
-  void _add() {
+  void _add(lat, lon) {
     final int circleCount = circles.length;
 
     if (circleCount == 12) {
@@ -87,7 +98,7 @@ class PlaceCircleBodyState extends State<PlaceCircleBody> {
       strokeColor: Colors.green,
       //fillColor: Colors.green,
       strokeWidth: 20,
-      center: _createCenter(),
+      center: _createCenter(lat, lon),
       radius: 10000,
       onTap: () {
         _onCircleTapped(circleId);
@@ -143,11 +154,15 @@ class PlaceCircleBodyState extends State<PlaceCircleBody> {
       children: <Widget>[
         Center(
           child: SizedBox(
-            width: 350.0,
             height: 300.0,
             child: GoogleMap(
-              initialCameraPosition: const CameraPosition(
-                target: LatLng(52.4478, -3.5402),
+              zoomGesturesEnabled: true,
+              scrollGesturesEnabled: true,
+              initialCameraPosition: CameraPosition(
+                target: LatLng(
+                  widget.locationState['latitude'],
+                  widget.locationState['longitude'],
+                ),
                 zoom: 7.0,
               ),
               circles: Set<Circle>.of(circles.values),
@@ -166,7 +181,12 @@ class PlaceCircleBodyState extends State<PlaceCircleBody> {
                       children: <Widget>[
                         FlatButton(
                           child: const Text('add'),
-                          onPressed: _add,
+                          onPressed: () {
+                            _add(
+                              widget.locationState['latitude'],
+                              widget.locationState['longitude'],
+                            );
+                          },
                         ),
                         FlatButton(
                           child: const Text('remove'),
@@ -211,9 +231,9 @@ class PlaceCircleBodyState extends State<PlaceCircleBody> {
     );
   }
 
-  LatLng _createCenter() {
+  LatLng _createCenter(lat, lng) {
     final double offset = _circleIdCounter.ceilToDouble();
-    return _createLatLng(51.4816 + offset * 0.2, -3.1791);
+    return _createLatLng(lat + offset * 0.2, lng);
   }
 
   LatLng _createLatLng(double lat, double lng) {
