@@ -177,9 +177,9 @@ class _HomeScreen extends State<HomeScreen>
               ],
             ),
           ),
-          MapSample(locationState: locationState, aqiMapData: aqiMapData),
+          PlaceCircleBody(locationState: locationState, aqiMapData: aqiMapData),
           ScreenNotifications(notifications: notifications),
-          PlaceCircleBody(locationState: locationState, aqiMapData: aqiMapData)
+          Screens(),
         ],
       ),
       bottomNavigationBar: Material(
@@ -202,7 +202,7 @@ class _HomeScreen extends State<HomeScreen>
 class Screens extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text('hi');
+    return SettingsScreen();
   }
 }
 
@@ -256,6 +256,81 @@ class Notification extends StatelessWidget {
                 // placeholder: Center(child: CircularProgressIndicator()),
               )),
         ],
+      ),
+    );
+  }
+}
+
+class SettingsScreen extends StatefulWidget {
+  @override
+  _State createState() => new _State();
+}
+
+//State is information of the application that can change over time or when some actions are taken.
+class _State extends State<SettingsScreen> {
+  bool _value1 = false;
+  bool _value2 = false;
+
+  void _onChanged1(bool value) => setState(() => _value1 = value);
+  void _onChanged2(bool value) => setState(() => _value2 = value);
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('Ajustes'),
+      ),
+      //hit Ctrl+space in intellij to know what are the options you can use in flutter widgets
+      body: new Container(
+        padding: new EdgeInsets.all(32.0),
+        child: new Center(
+          child: new Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: 50.0,
+                    backgroundImage:
+                        NetworkImage('https://via.placeholder.com/150'),
+                    backgroundColor: Colors.transparent,
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    'Incognito',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 100,
+              ),
+              Text(
+                'Configure las notificaciones',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              new SwitchListTile(
+                value: _value1,
+                onChanged: _onChanged1,
+                title: new Text('Notificaciones por hora',
+                    style: new TextStyle(
+                        fontWeight: FontWeight.normal, color: Colors.black)),
+              ),
+              new SwitchListTile(
+                value: _value2,
+                onChanged: _onChanged2,
+                title: new Text('Notificaciones contingencias',
+                    style: new TextStyle(
+                        fontWeight: FontWeight.normal, color: Colors.black)),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

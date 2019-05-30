@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:airmine/providers/aqi.dart';
 
 abstract class Page extends StatelessWidget {
   const Page(this.leading, this.title);
@@ -43,22 +44,41 @@ class PlaceCircleBodyState extends State<PlaceCircleBody> {
     this.controller = controller;
   }
 
+  bool isNumeric(String s) {
+    if (s == null) {
+      return false;
+    }
+    return double.parse(s) != null;
+  }
+
   @override
   void initState() {
     print('aqiMapData');
     print(widget.aqiMapData.length);
-    if (widget.aqiMapData.length > 0) {
-      for (var x = 0; x < widget.aqiMapData.length; x++) {
-        _add(
-          widget.aqiMapData[x]['lat'],
-          widget.aqiMapData[x]['lon'],
-        );
-      }
+
+    for (var x = 0; x < widget.aqiMapData.length; x++) {
+      double colindex = 40;
+      // print(widget.aqiMapData[x]);
+      // double s = double.tryParse(widget.aqiMapData[x]['aqi'].toString());
+      // if (s != null) {
+      //   colindex = widget.aqiMapData[x]['aqi'];
+      //   print(colindex);
+      // }
+      Color col = colorize(colindex, 'aqi');
+      _add(
+        widget.aqiMapData[x]['lat'],
+        widget.aqiMapData[x]['lon'],
+        widget.aqiMapData[x]['uid'],
+        col,
+      );
     }
-    _add(
-      widget.locationState['latitude'],
-      widget.locationState['longitude'],
-    );
+
+    // _add(
+    //   widget.locationState['latitude'],
+    //   widget.locationState['longitude'],
+    //   '21z',
+    //   Colors.green,
+    // );
   }
 
   @override
@@ -81,28 +101,25 @@ class PlaceCircleBodyState extends State<PlaceCircleBody> {
     });
   }
 
-  void _add(lat, lon) {
+  void _add(lat, lon, id, Color col) {
     final int circleCount = circles.length;
 
     if (circleCount == 12) {
       return;
     }
 
-    final String circleIdVal = 'circle_id_$_circleIdCounter';
-    _circleIdCounter++;
+    final String circleIdVal = 'circle_id_$id';
+
     final CircleId circleId = CircleId(circleIdVal);
 
     final Circle circle = Circle(
       circleId: circleId,
-      consumeTapEvents: true,
-      strokeColor: Colors.green,
-      //fillColor: Colors.green,
-      strokeWidth: 20,
-      center: _createCenter(lat, lon),
-      radius: 10000,
-      onTap: () {
-        _onCircleTapped(circleId);
-      },
+      consumeTapEvents: false,
+      strokeColor: col,
+      // fillColor: col,
+      strokeWidth: 47,
+      center: LatLng(lat, lon),
+      radius: 3990,
     );
 
     setState(() {
@@ -148,87 +165,98 @@ class PlaceCircleBodyState extends State<PlaceCircleBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Center(
-          child: SizedBox(
-            height: 300.0,
-            child: GoogleMap(
-              zoomGesturesEnabled: true,
-              scrollGesturesEnabled: true,
-              initialCameraPosition: CameraPosition(
-                target: LatLng(
-                  widget.locationState['latitude'],
-                  widget.locationState['longitude'],
-                ),
-                zoom: 7.0,
-              ),
-              circles: Set<Circle>.of(circles.values),
-              onMapCreated: _onMapCreated,
-            ),
+    return Scaffold(
+      body: GoogleMap(
+        initialCameraPosition: CameraPosition(
+          target: LatLng(
+            widget.locationState['latitude'],
+            widget.locationState['longitude'],
           ),
+          zoom: 7.9,
         ),
-        Expanded(
-          child: SingleChildScrollView(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        FlatButton(
-                          child: const Text('add'),
-                          onPressed: () {
-                            _add(
-                              widget.locationState['latitude'],
-                              widget.locationState['longitude'],
-                            );
-                          },
-                        ),
-                        FlatButton(
-                          child: const Text('remove'),
-                          onPressed: (selectedCircle == null) ? null : _remove,
-                        ),
-                        FlatButton(
-                          child: const Text('toggle visible'),
-                          onPressed:
-                              (selectedCircle == null) ? null : _toggleVisible,
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: <Widget>[
-                        FlatButton(
-                          child: const Text('change stroke width'),
-                          onPressed: (selectedCircle == null)
-                              ? null
-                              : _changeStrokeWidth,
-                        ),
-                        FlatButton(
-                          child: const Text('change stroke color'),
-                          onPressed: (selectedCircle == null)
-                              ? null
-                              : _changeStrokeColor,
-                        ),
-                        FlatButton(
-                          child: const Text('change fill color'),
-                          onPressed: (selectedCircle == null)
-                              ? null
-                              : _changeFillColor,
-                        ),
-                      ],
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
-      ],
+        circles: Set<Circle>.of(circles.values),
+        onMapCreated: _onMapCreated,
+      ),
     );
+    // Column(
+    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //   crossAxisAlignment: CrossAxisAlignment.stretch,
+    //   children: <Widget>[
+    //     Center(
+    //       child: SizedBox(
+    //         height: 400.0,
+    //         child: GoogleMap(
+    //           initialCameraPosition: CameraPosition(
+    //             target: LatLng(
+    //               widget.locationState['latitude'],
+    //               widget.locationState['longitude'],
+    //             ),
+    //             zoom: 8.9,
+    //           ),
+    //           circles: Set<Circle>.of(circles.values),
+    //           onMapCreated: _onMapCreated,
+    //         ),
+    //       ),
+    //     ),
+    //     Expanded(
+    //       child: SingleChildScrollView(
+    //         child: Row(
+    //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //           children: <Widget>[
+    //             Row(
+    //               children: <Widget>[
+    //                 Column(
+    //                   children: <Widget>[
+    //                     FlatButton(
+    //                       child: const Text('add'),
+    //                       onPressed: () {
+    //                         _add(
+    //                           widget.locationState['latitude'],
+    //                           widget.locationState['longitude'],
+    //                         );
+    //                       },
+    //                     ),
+    //                     FlatButton(
+    //                       child: const Text('remove'),
+    //                       onPressed: (selectedCircle == null) ? null : _remove,
+    //                     ),
+    //                     FlatButton(
+    //                       child: const Text('toggle visible'),
+    //                       onPressed:
+    //                           (selectedCircle == null) ? null : _toggleVisible,
+    //                     ),
+    //                   ],
+    //                 ),
+    //                 Column(
+    //                   children: <Widget>[
+    //                     FlatButton(
+    //                       child: const Text('change stroke width'),
+    //                       onPressed: (selectedCircle == null)
+    //                           ? null
+    //                           : _changeStrokeWidth,
+    //                     ),
+    //                     FlatButton(
+    //                       child: const Text('change stroke color'),
+    //                       onPressed: (selectedCircle == null)
+    //                           ? null
+    //                           : _changeStrokeColor,
+    //                     ),
+    //                     FlatButton(
+    //                       child: const Text('change fill color'),
+    //                       onPressed: (selectedCircle == null)
+    //                           ? null
+    //                           : _changeFillColor,
+    //                     ),
+    //                   ],
+    //                 )
+    //               ],
+    //             )
+    //           ],
+    //         ),
+    //       ),
+    //     ),
+    //   ],
+    // );
   }
 
   LatLng _createCenter(lat, lng) {
