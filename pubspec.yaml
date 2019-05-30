@@ -28,7 +28,7 @@ dependencies:
   location: ^1.4.1
   cached_network_image:
   # firebase_core: ^0.2.5
-  google_maps_flutter: ^0.5.14
+  google_maps_flutter: ^0.5.15
   # map_view:
   #   git:
   #     url: git://github.com/Eimji/flutter_google_map_view.git
