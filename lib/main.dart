@@ -8,7 +8,7 @@ import 'package:airmine/providers/aqi.dart';
 import 'package:airmine/ScreenTop.dart';
 import 'package:airmine/ScreenBottom.dart';
 import 'package:airmine/widgets/mapa.dart';
-
+import 'package:airmine/widgets/circle.dart';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -85,6 +85,7 @@ class _HomeScreen extends State<HomeScreen>
   String address;
   TabController tabcontroller;
   Map<String, dynamic> aqiData;
+  var aqiMapData;
   var locationState;
 
   List<Map<String, dynamic>> notifications = [
@@ -116,6 +117,12 @@ class _HomeScreen extends State<HomeScreen>
             aqiData = aqi;
           });
         });
+        aqiMapProvider(result).then((aqi) {
+          print(aqi.toString());
+          setState(() {
+            aqiMapData = aqi;
+          });
+        });
       });
     } catch (e) {
       if (e.code == 'PERMISSION_DENIED') {
@@ -129,7 +136,6 @@ class _HomeScreen extends State<HomeScreen>
   void initState() {
     super.initState();
     getNotifications().then((res_notifications) {
-      print(res_notifications.toString());
       res_notifications.forEach((k, v) {
         setState(() {
           notifications.add({
@@ -171,9 +177,9 @@ class _HomeScreen extends State<HomeScreen>
               ],
             ),
           ),
-          MapSample(locationState: locationState),
+          MapSample(locationState: locationState, aqiMapData: aqiMapData),
           ScreenNotifications(notifications: notifications),
-          Screens(),
+          PlaceCirclePage()
         ],
       ),
       bottomNavigationBar: Material(

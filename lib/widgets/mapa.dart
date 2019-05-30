@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 class MapSample extends StatefulWidget {
   var locationState;
-  MapSample({this.locationState});
+  var aqiMapData;
+  MapSample({this.locationState, this.aqiMapData});
   @override
   State<MapSample> createState() => MapSampleState();
 }
@@ -20,6 +21,8 @@ class MapSampleState extends State<MapSample> {
   void initState() {
     print('MAPA location');
     print(widget.locationState.toString());
+    print('aqiMapData');
+    print(widget.aqiMapData.toString());
     setState(() {
       _kLake = CameraPosition(
           // bearing: 192.8334901395799,
@@ -39,10 +42,24 @@ class MapSampleState extends State<MapSample> {
     });
   }
 
+  final LatLng _kMapCenter = LatLng(37.422, -122.084);
+  BitmapDescriptor _markerIcon;
+
+  Set<Marker> _createMarker() {
+    return <Marker>[
+      Marker(
+        markerId: MarkerId("marker_1"),
+        position: _kMapCenter,
+        icon: _markerIcon,
+      ),
+    ].toSet();
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       body: GoogleMap(
+        markers: _createMarker(),
         mapType: MapType.terrain,
         initialCameraPosition: _kGooglePlex,
         onMapCreated: (GoogleMapController controller) {
