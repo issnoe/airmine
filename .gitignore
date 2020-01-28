@@ -131,6 +131,8 @@ unlinked_spec.ds
 
 # Android related
 **/android/**/gradle-wrapper.jar
+**/android/.gradle/
+**/android/.gradle/**/
 **/android/.gradle
 **/android/captures/
 **/android/gradlew
@@ -184,3 +186,5 @@ coverage/
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
+android/.gradle/**/fileHashes/fileHashes.bin
+android/.gradle/4.10.2/fileHashes/fileHashes.lock
