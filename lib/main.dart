@@ -79,19 +79,26 @@ class _HomeScreen extends State<HomeScreen>
         address = null;
         aqiData = null;
       });
-      location.getLocation().then((result) {
-        locationGeocode(result).then((name) {
-          setState(() {
-            address = name;
+      try {
+        location.getLocation().then((result) {
+          locationGeocode(result).then((name) {
+            setState(() {
+              address = name;
+            });
+          });
+          aqiProvider(result).then((aqi) {
+            // print(aqi.toString());
+            setState(() {
+              aqiData = aqi;
+            });
           });
         });
-        aqiProvider(result).then((aqi) {
-          // print(aqi.toString());
-          setState(() {
-            aqiData = aqi;
-          });
-        });
-      });
+      } catch (e) {
+        if (e.code == 'PERMISSION_DENIED') {
+          print('Permission denied');
+        }
+      }
+
       getNotifications().then((notifications) {
         print(notifications.toString());
         setState(() {

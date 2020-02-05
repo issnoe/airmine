@@ -11,10 +11,15 @@ dynamic locationGeocode(currentLocation) async {
   final urlGoogle = '$baseUrlGoogle?key=$googleMapsKey&latlng=$lanLng';
   var responseGoogle = await http.get(urlGoogle);
   if (responseGoogle.statusCode == 200) {
+    //TODO Validate type as JSON
     var jsonResponse = convert.jsonDecode(responseGoogle.body);
-    var formattedAddress = jsonResponse['results'][0]['formatted_address'];
-    var arrayAddress = formattedAddress.split(",");
-    address = arrayAddress.skip(1).take(2).toList().join(',');
+    if (jsonResponse['results'] && jsonResponse['results'][0]) {
+      var formattedAddress = jsonResponse['results'][0]['formatted_address'];
+      var arrayAddress = formattedAddress.split(",");
+      address = arrayAddress.skip(1).take(2).toList().join(',');
+    } else {
+      print('Error en Google bills');
+    }
   } else {
     print("Request failed $responseGoogle.");
   }
