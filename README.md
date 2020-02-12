@@ -1,5 +1,6 @@
 
-# Descripción
+# Airmine
+
 - Con esta aplicación podrás saber el índice de la calidad del aire en tu ubicación, por medio de un potente algoritmo de machine learning.
 
 # Características
@@ -9,6 +10,7 @@
 - Recomendaciones
 
 # Próxima versión
+
 - Notificaciones
 - Pronósticos
 - Clima
@@ -36,5 +38,12 @@ git tag -a <2> -m '<2> beta'
 git tag -s <2> -m 'Signed <2> tag'
 git push origin <2>
 
-# HotFixes
--
+# Task
+
+- [ ] Check issue related with cached network image
+- [ ] https://pub.dev/packages/cached_network_image
+  - [ ] ? This error is from database stoge
+  - [ ] Check versions from master compare hotfix
+
+- [ ] Update key from google count matersoft
+- [ ] Change with example to render image

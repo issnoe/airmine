@@ -135,6 +135,7 @@ class _HomeScreen extends State<HomeScreen>
   @override
   void initState() {
     super.initState();
+    /*
     getNotifications().then((res_notifications) {
       res_notifications.forEach((k, v) {
         setState(() {
@@ -147,7 +148,7 @@ class _HomeScreen extends State<HomeScreen>
           });
         });
       });
-    });
+    });*/
     reloadData();
     tabcontroller = new TabController(length: 4, vsync: this);
   }
@@ -249,7 +250,8 @@ class Notification extends StatelessWidget {
           Container(
               width: 500,
               child: CachedNetworkImage(
-                imageUrl: '${data['image']}',
+                imageUrl:
+                    'http://via.placeholder.com/350x150', //'${data['image']}',
                 fit: BoxFit.cover,
                 fadeInDuration: Duration(milliseconds: 500),
                 fadeInCurve: Curves.easeIn,
