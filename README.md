@@ -1,5 +1,6 @@
 
-# Descripción
+# Airmine
+
 - Con esta aplicación podrás saber el índice de la calidad del aire en tu ubicación, por medio de un potente algoritmo de machine learning.
 
 # Características
@@ -9,6 +10,7 @@
 - Recomendaciones
 
 # Próxima versión
+
 - Notificaciones
 - Pronósticos
 - Clima
@@ -27,8 +29,8 @@
   - flutterVersionName
 
 
-flutter build apk --release --target-platform=android-arm64 --build-name=1.0.2 --build-number=3
-flutter build apk --release --target-platform=android-arm --build-name=1.0.2 --build-number=3.1
+flutter build apk --release --target-platform=android-arm64 --build-name=1.0.4 --build-number=41
+flutter build apk --release --target-platform=android-arm --build-name=1.0.5 --build-number=42
 
 # Realese steps
 
@@ -36,3 +38,12 @@ git tag -a <2> -m '<2> beta'
 git tag -s <2> -m 'Signed <2> tag'
 git push origin <2>
 
+# Task
+
+- [ ] Check issue related with cached network image
+- [ ] https://pub.dev/packages/cached_network_image
+  - [ ] ? This error is from database stoge
+  - [ ] Check versions from master compare hotfix
+
+- [ ] Update key from google count matersoft
+- [ ] Change with example to render image
