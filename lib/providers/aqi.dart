@@ -19,6 +19,30 @@ dynamic getNotifications() async {
   return provider;
 }
 
+dynamic aqiMapProvider(currentLocation) async {
+  var jsonResponse;
+  var provider;
+  const apiToken = '15bae679176be73a9af8eabd9e9099d4b027828d';
+  final latitud = currentLocation["latitude"].toString();
+  final longitud = currentLocation["longitude"].toString();
+  //var latitudDelat = latitud + latitud * 0.2;
+  //  final url =
+  //     'https://api.waqi.info/map/bounds/?token=$apiToken&latlng=19.24503272990791,-99.38095092773439,19.659400544680974,-98.89205932617189';
+  final url =
+      'https://api.waqi.info/map/bounds/?token=$apiToken&latlng=$latitud,$longitud,19.659400544680974,-98.89205932617189';
+  print(url);
+  // Await the http get response, then decode the json-formatted responce.
+  var response = await http.get(url);
+  if (response.statusCode == 200) {
+    jsonResponse = convert.jsonDecode(response.body);
+    print('APIMAPARESPONSE' + jsonResponse.toString());
+    provider = jsonResponse['data'];
+  } else {
+    print("Request failed $response.");
+  }
+  return provider;
+}
+
 dynamic aqiProvider(currentLocation) async {
   var jsonResponse;
   var provider;

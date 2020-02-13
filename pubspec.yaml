@@ -1,5 +1,5 @@
 name: airmine
-description: A new Flutter project.
+description: AQI Air.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -26,11 +26,14 @@ dependencies:
   intl:
   http: ^0.12.0+2
   location: ^1.4.1
-  cached_network_image:
-  firebase_core: ^0.2.5
+  cached_network_image: ^2.0.0
+  # firebase_core: ^0.2.5
+  google_maps_flutter: ^0.5.15
+  # map_view:
+  #   git:
+  #     url: git://github.com/Eimji/flutter_google_map_view.git
   # cloud_firestore: ^0.8.2
   # cloud_firestore:
-
 
 dev_dependencies:
   flutter_test:
@@ -45,30 +48,23 @@ flutter_icons:
   adaptive_icon_background: "#FFFAFAFA"
   adaptive_icon_foreground: "assets/icon/icon.png"
 
-
-
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
